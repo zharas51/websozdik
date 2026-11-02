@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Желіде сауатты жаз — Интерактивті веб-сөздік</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #059669;
+      --error: #ef4444;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Вкладкалар (Навигация) */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .search-box {
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      background: #f1f5f9;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .results-list {
+      max-height: 350px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 4px;
+    }
+
+    .word-card {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 14px;
+      border-radius: 8px;
+    }
+
+    .word-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .slang-term {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .category-badge {
+      font-size: 11px;
+      background: #e0e7ff;
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .correction {
+      font-size: 14px;
+      color: var(--success);
+      margin-bottom: 4px;
+    }
+
+    .correction span {
+      font-weight: 600;
+    }
+
+    .meaning {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Тест стилдері */
+    .quiz-card {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .quiz-question {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      background: white;
+      border: 2px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      text-align: left;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--primary);
+    }
+
+    .quiz-option.correct {
+      background: #d1fae5;
+      border-color: var(--success);
+      color: #065f46;
+      font-weight: bold;
+    }
+
+    .quiz-option.wrong {
+      background: #fee2e2;
+      border-color: var(--error);
+      color: #991b1b;
+    }
+
+    .quiz-next-btn {
+      margin-top: 15px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      width: 100%;
+    }
+
+    .quiz-score {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💬 Желіде сауатты жаз</h1>
+    <p class="subtitle">Әлеуметтік желідегі тілдік қолданыстардың әдеби баламасы мен интерактивті тесті</p>
+
+    <!-- Вкладкалар -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('dictionaryTab', event)">Сөздік</button>
+      <button class="tab-btn" onclick="switchTab('quizTab', event)">Өзіңді тексер 📝</button>
+    </div>
+
+    <!-- 1-БӨЛІМ: СӨЗДІК -->
+    <div id="dictionaryTab" class="tab-content active">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Сөзді іздеу (мысалы: кринж, қалайсын, спс)..." oninput="filterWords()">
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" onclick="setCategory('Барлығы', event)">Барлығы</button>
+        <button class="filter-btn" onclick="setCategory('Орфография', event)">Орфография</button>
+        <button class="filter-btn" onclick="setCategory('Қысқарту', event)">Қысқарту</button>
+        <button class="filter-btn" onclick="setCategory('Сленг', event)">Сленг</button>
+        <button class="filter-btn" onclick="setCategory('Аралас тіл', event)">Аралас тіл</button>
+      </div>
+
+      <div id="resultsList" class="results-list"></div>
+    </div>
+
+    <!-- 2-БӨЛІМ: ТЕСТ (ӨЗІҢДІ ТЕКСЕР) -->
+    <div id="quizTab" class="tab-content">
+      <div class="quiz-card">
+        <div id="quizContainer">
+          <div id="quizQuestion" class="quiz-question"></div>
+          <div id="quizOptions" class="quiz-options"></div>
+          <button id="nextBtn" class="quiz-next-btn" onclick="nextQuestion()">Келесі сұрақ ➔</button>
+        </div>
+        <div id="quizResult" class="quiz-score" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Сөздік базасы
+    const dictionary = [
+      { term: "қалайсын", literary: "қалайсың", meaning: "Сөзді әдеби нормаға сай толық жазу керек.", category: "Орфография" },
+      { term: "барм", literary: "бармаймын", meaning: "Сөзді әдеби нормаға сай толық жазу керек.", category: "Қысқарту" },
+      { term: "Краш", literary: "ұнайтын адам", meaning: "Белгілі бір жастар ортасында қолданылатын бейресми сөздер.", category: "Сленг" },
+      { term: "Крутой", literary: "керемет, мықты", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "крдм", literary: "Кірдім", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "ок", literary: "Жарайды", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Келесинба", literary: "Келесің бе?", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "норм", literary: "Жақсы, қалыпты", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Кәз", literary: "Қазір", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Спс", literary: "Рақмет", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Болд", literary: "Болды", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Кеси", literary: "Кел", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Қойш", literary: "Қойшы", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "Қаяқтасын", literary: "Қай жақтасың?", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Жіберми атыр", literary: "Жібермей жатыр", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Бугн", literary: "Бүгін", meaning: "қысқарту", category: "Қысқарту" },
+      { term: "Грға", literary: "Группаға, топқа", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Баратрм", literary: "Бара жатырмын", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Братан", literary: "жақын дос, аға", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "тема", literary: "жақсы нәрсе, келісілген нәрсе", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Прикол", literary: "әзіл, күлкілі нәрсе", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Лайк", literary: "Ұнату", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хайп", literary: "көпшіліктің назарын аударған нәрсе", meaning: "Сленг", category: "Сленг" },
+      { term: "Топ", literary: "өте жақсы, керемет", meaning: "Сленг", category: "Сленг" },
+      { term: "Игнор", literary: "Біреудің жазған хабарламасына не сөзіне әдейі жауап бермеу, елемеу", meaning: "Сленг", category: "Сленг" },
+      { term: "Понт", literary: "Құрғақ мақтан, артық қылық", meaning: "Сленг", category: "Сленг" },
+      { term: "Токсик", literary: "Жан-жағына жаман энергия тарататын ренжіткіш адам", meaning: "Сленг", category: "Сленг" },
+      { term: "гоу", literary: "Кеттік, бастайық, жүр", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "Базар жоқ", literary: "Келісемін, сөз жоқ", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "Вайб", literary: "Ортаның немесе адамның беретін атмосферасы, көңіл-күйі", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "Кринж", literary: "Біреудің орнына ұялу, ыңғайсыз не оқыс әрекет", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "флекс", literary: "Өзін-өзі көрсету, мақтану", meaning: "Қысқарту", category: "Сленг" },
+      { term: "лақтыру", literary: "Уәдеде тұрмау, алдап кету, кездесуге келмеу", meaning: "Бейресми сөз", category: "Сленг" },
+      { term: "Нада", literary: "Мынада", meaning: "Орфографиялық ауытқу", category: "Орфография" }
+    ];
+
+    let currentCategory = 'Барлығы';
+
+    // Вкладкаларды ауыстыру
+    function switchTab(tabId, event) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+
+      if (tabId === 'quizTab') {
+        startQuiz();
+      }
+    }
+
+    // Сөздікті көрсету
+    function displayWords(items) {
+      const listEl = document.getElementById('resultsList');
+      listEl.innerHTML = '';
+
+      if (items.length === 0) {
+        listEl.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">Іздеу бойынша сөз табылмады 😔</div>';
+        return;
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'word-card';
+        card.innerHTML = `
+          <div class="word-header">
+            <span class="slang-term">${item.term}</span>
+            <span class="category-badge">${item.category}</span>
+          </div>
+          <div class="correction">Дұрыс жазылымы: <span>${item.literary}</span></div>
+          <div class="meaning">${item.meaning}</div>
+        `;
+        listEl.appendChild(card);
+      });
+    }
+
+    function filterWords() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const filtered = dictionary.filter(item => {
+        const matchesCategory = currentCategory === 'Барлығы' || item.category === currentCategory;
+        const matchesQuery = item.term.toLowerCase().includes(query) || item.literary.toLowerCase().includes(query);
+        return matchesCategory && matchesQuery;
+      });
+      displayWords(filtered);
+    }
+
+    function setCategory(category, event) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      filterWords();
+    }
+
+    // --- ТЕСТ ЛОГИКАСЫ ---
+    const quizQuestions = [
+      { question: "«билмим» сөзінің әдеби нормасы қандай?", options: ["білмеймін", "білмимін", "билмеймин"], answer: 0 },
+      { question: "«спс» қысқартуының дұрыс баламасы:", options: ["Сау бол", "Рақмет", "Сәлем"], answer: 1 },
+      { question: "«Кринж» сөзінің мағынасы қандай?", options: ["Көп мақтану", "Біреу үшін ұялу немесе ыңғайсыз жағдай", "Досыңа қолдау көрсету"], answer: 1 },
+      { question: "«барм» сөзінің дұрыс мағынасы:", options: ["барамын", "бармаймын", "бармын"], answer: 1 },
+      { question: "«Вайб» сөзі қандай ұғымды білдіреді?", options: ["Жаман мінез", "Атмосфера, көңіл-күй", "Өтірік сөйлеу"], answer: 1 }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      document.getElementById('quizContainer').style.display = 'block';
+      document.getElementById('quizResult').style.display = 'none';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = quizQuestions[currentQuestionIndex];
+      document.getElementById('quizQuestion').textContent = `${currentQuestionIndex + 1}. ${q.question}`;
+      
+      const optionsContainer = document.getElementById('quizOptions');
+      optionsContainer.innerHTML = '';
+
+      document.getElementById('nextBtn').style.display = 'none';
+
+      q.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = option;
+        btn.onclick = () => selectOption(btn, index, q.answer);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedBtn, selectedIndex, correctIndex) {
+      const options = document.querySelectorAll('.quiz-option');
+      options.forEach(btn => btn.onclick = null); // Жауапты бекіту
+
+      if (selectedIndex === correctIndex) {
+        selectedBtn.classList.add('correct');
+        score++;
+      } else {
+        selectedBtn.classList.add('wrong');
+        options[correctIndex].classList.add('correct');
+      }
+
+      document.getElementById('nextBtn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizQuestions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quizContainer').style.display = 'none';
+      const resultEl = document.getElementById('quizResult');
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = `
+        🎯 Тест аяқталды!<br><br>
+        Сіз ${quizQuestions.length} сұрақтың <strong>${score}</strong> сұрағына дұрыс жауап бердіңіз!
+        <br><br>
+        <button class="filter-btn active" onclick="startQuiz()" style="font-size:14px; padding:8px 16px;">Кайтадан тапсыру</button>
+      `;
+    }
+
+    // Бастапқы іске қосу
+    displayWords(dictionary);
+  </script>
+
+</body>
+</html>
