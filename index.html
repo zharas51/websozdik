@@ -295,42 +295,149 @@
   </div>
 
   <script>
-    // Сөздік базасы
+    // Барлық 142 сөздік базасы
     const dictionary = [
-      { term: "қалайсын", literary: "қалайсың", meaning: "Сөзді әдеби нормаға сай толық жазу керек.", category: "Орфография" },
-      { term: "барм", literary: "бармаймын", meaning: "Сөзді әдеби нормаға сай толық жазу керек.", category: "Қысқарту" },
-      { term: "Краш", literary: "ұнайтын адам", meaning: "Белгілі бір жастар ортасында қолданылатын бейресми сөздер.", category: "Сленг" },
-      { term: "Крутой", literary: "керемет, мықты", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
-      { term: "крдм", literary: "Кірдім", meaning: "Қысқартулар", category: "Қысқарту" },
+      { term: "қалайсын", literary: "қалайсың", meaning: "Орфография", category: "Орфография" },
+      { term: "барм", literary: "бармаймын", meaning: "Қысқарту", category: "Қысқарту" },
+      { term: "Краш", literary: "ұнайтын адам", meaning: "Сленг", category: "Сленг" },
+      { term: "Крутой", literary: "керемет, мықты", meaning: "Аралас тіл", category: "Аралас тіл" },
+      { term: "крдм", literary: "Кірдім", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
       { term: "ок", literary: "Жарайды", meaning: "Қысқартулар", category: "Қысқарту" },
-      { term: "Келесинба", literary: "Келесің бе?", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Келесинба", literary: "Келесің бе?", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
       { term: "норм", literary: "Жақсы, қалыпты", meaning: "Қысқартулар", category: "Қысқарту" },
-      { term: "Кәз", literary: "Қазір", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
+      { term: "Кәз", literary: "Қазір", meaning: "Қысқартулар", category: "Қысқарту" },
       { term: "Спс", literary: "Рақмет", meaning: "Қысқартулар", category: "Қысқарту" },
       { term: "Болд", literary: "Болды", meaning: "Қысқартулар", category: "Қысқарту" },
       { term: "Кеси", literary: "Кел", meaning: "Қысқартулар", category: "Қысқарту" },
       { term: "Қойш", literary: "Қойшы", meaning: "Қысқартулар", category: "Қысқарту" },
-      { term: "Қаяқтасын", literary: "Қай жақтасың?", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
-      { term: "Жіберми атыр", literary: "Жібермей жатыр", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
-      { term: "Бугн", literary: "Бүгін", meaning: "қысқарту", category: "Қысқарту" },
-      { term: "Грға", literary: "Группаға, топқа", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
-      { term: "Баратрм", literary: "Бара жатырмын", meaning: "Сөзді әдеби нормаға сай толық жазбау", category: "Орфография" },
-      { term: "Братан", literary: "жақын дос, аға", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
-      { term: "тема", literary: "жақсы нәрсе, келісілген нәрсе", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Қаяқтасын", literary: "Қай жақтасың?", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
+      { term: "Жіберми атыр", literary: "Жібермей жатыр", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
+      { term: "Бугн", literary: "Бүгін", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
+      { term: "Грға", literary: "Группаға, топқа", meaning: "Қысқарту", category: "Қысқарту" },
+      { term: "Баратрм", literary: "Бара жатырмын", meaning: "Сөзді әдеби нормаға сай жазбау", category: "Орфография" },
+      { term: "Братан", literary: "жақын дос, аға", meaning: "Белгілі бір жастар ортасында қолданылатын бейресми сөздер.", category: "Сленг" },
+      { term: "тема", literary: "жақсы нәрсе, келісілген нәрсе", meaning: "Белгілі бір жастар ортасында қолданылатын бейресми сөздер.", category: "Сленг" },
+      { term: "Кент", literary: "Дос, жолдас", meaning: "тілдердің араласуы", category: "Аралас тіл" },
       { term: "Прикол", literary: "әзіл, күлкілі нәрсе", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
-      { term: "Лайк", literary: "Ұнату", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Лайк", literary: "Ұнату", meaning: "Сленг", category: "Сленг" },
       { term: "Хайп", literary: "көпшіліктің назарын аударған нәрсе", meaning: "Сленг", category: "Сленг" },
       { term: "Топ", literary: "өте жақсы, керемет", meaning: "Сленг", category: "Сленг" },
-      { term: "Игнор", literary: "Біреудің жазған хабарламасына не сөзіне әдейі жауап бермеу, елемеу", meaning: "Сленг", category: "Сленг" },
-      { term: "Понт", literary: "Құрғақ мақтан, артық қылық", meaning: "Сленг", category: "Сленг" },
-      { term: "Токсик", literary: "Жан-жағына жаман энергия тарататын ренжіткіш адам", meaning: "Сленг", category: "Сленг" },
-      { term: "гоу", literary: "Кеттік, бастайық, жүр", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
-      { term: "Базар жоқ", literary: "Келісемін, сөз жоқ", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "Игнор", literary: "Біреудің жазған хабарламасына не сөзіне әдейі жауап бермеу, елемеу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Понт", literary: "Құрғақ мақтан, артық қылық", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Токсик", literary: "Жан-жағына жаман энергия тарататын ренжіткіш адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "гоу", literary: "Кеттік, бастайық, жүр", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Базар жоқ", literary: "Келісемін, сөз жоқ", meaning: "Белгілі бір жастар ортасында қолданылатын бейресми сөздер.", category: "Сленг" },
       { term: "Вайб", literary: "Ортаның немесе адамның беретін атмосферасы, көңіл-күйі", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
       { term: "Кринж", literary: "Біреудің орнына ұялу, ыңғайсыз не оқыс әрекет", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
-      { term: "флекс", literary: "Өзін-өзі көрсету, мақтану", meaning: "Қысқарту", category: "Сленг" },
-      { term: "лақтыру", literary: "Уәдеде тұрмау, алдап кету, кездесуге келмеу", meaning: "Бейресми сөз", category: "Сленг" },
-      { term: "Нада", literary: "Мынада", meaning: "Орфографиялық ауытқу", category: "Орфография" }
+      { term: "флекс", literary: "Өзін-өзі көрсету, мақтану", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "лақтыру", literary: "Уәдеде тұрмау, алдап кету, кездесуге келмеу", meaning: "Кірме сөздердің аралас қолданылуы", category: "Аралас тіл" },
+      { term: "Нада", literary: "Мынада", meaning: "Қысқарту", category: "Қысқарту" },
+      { term: "Тусовка", literary: "Достардың бас қосуы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Движ", literary: "Қызық іс-шара, орта", meaning: "орысша тілдердің араласуы, қысқарған", category: "Аралас тіл" },
+      { term: "Че?", literary: "Не?", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Рофл", literary: "Әзіл, қалжың", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Зашквар", literary: "ұятты/жаман жағдай", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Чувак", literary: "жігіт, адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Девка", literary: "қыз", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Бабки", literary: "ақша", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хата", literary: "үй", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Предки", literary: "Ата-ана", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Мобила", literary: "телефон", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Видос", literary: "видео", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Фотка", literary: "фото", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Комп", literary: "компьютер", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Инет", literary: "интернет", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Домашка", literary: "Үй тапсырмасы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Контроша", literary: "бақылау жұмысы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Препод", literary: "мұғалім", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Студентота", literary: "студент", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Залипать", literary: "Бір нәрсеге ұзақ қарап отыру", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Го", literary: "Жүр, кеттік", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Ща", literary: "қазір", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Окей", literary: "жарайды", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Имба", literary: "Өте мықты, күшті нәрсе", meaning: "Сленг", category: "Сленг" },
+      { term: "Скам", literary: "Алдау, алаяқтық", meaning: "Сленг", category: "Сленг" },
+      { term: "Чиллить", literary: "Демалу, тынығу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Мәә", literary: "Таңғалу,таңырқау", meaning: "Сленг", category: "Сленг" },
+      { term: "Капец", literary: "Өте қиын жағдайды білдіру", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Жесть", literary: "өте ауыр/ерекше жағдай", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Вау", literary: "таңғалу", meaning: "Сленг", category: "Сленг" },
+      { term: "Норм", literary: "Жақсы, қалыпты", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Лажа", literary: "Сапасыз, сәтсіз нәрсе", meaning: "Сленг", category: "Сленг" },
+      { term: "Косяк", literary: "Қате, кемшілік", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Разборка", literary: "Жанжал, ұрыс", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Стрелка", literary: "Кездесіп, мәселені шешу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Бухать", literary: "Ішімдік ішу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Тачка", literary: "көлік", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Шмотки", literary: "Киім", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Шмот", literary: "Киім-кешек", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Телега", literary: "Telegram", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Ава", literary: "Профильдегі сурет", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Выкатить", literary: "біреуге ұсыныс айту", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Игнорить", literary: "елемеу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хейтить", literary: "жамандау", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Чекать", literary: "қарап шығу, тексеру", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Репост", literary: "жазбаны қайта жариялау", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Сторис", literary: "әлеуметтік желідегі қысқа жарияланым", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Подписота", literary: "жазылушылар", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Бала", literary: "жігіт, жас адам", meaning: "Сленг", category: "Сленг" },
+      { term: "Брат", literary: "дос, жақын адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Бро", literary: "дос", meaning: "ағылшынша тілдердің араласуы; қысқартылған сөз", category: "Аралас тіл" },
+      { term: "Доска", literary: "дос (кей ортада)", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Кореш", literary: "жақын дос", meaning: "орыс тіліндегі жаргон сөз", category: "Сленг" },
+      { term: "Чел", literary: "адам", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Тип", literary: "адам, жігіт", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Реально", literary: "шынымен", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Жиза", literary: "өмірде кездесетін, таныс жағдай", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Лол", literary: "күлкілі жағдайды білдіру", meaning: "ағылшынша тілдердің араласуы; қысқартылған сөз", category: "Аралас тіл" },
+      { term: "Треш", literary: "өте ерекше/қиын жағдай", meaning: "ағылшынша тілдердің араласуы;сленг", category: "Сленг" },
+      { term: "Топчик", literary: "өте жақсы", meaning: "орысша тілдердің араласуы; сленг", category: "Сленг" },
+      { term: "Зачёт", literary: "жақсы, ұнады", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Фейл", literary: "сәтсіздік, қате", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хейт", literary: "жағымсыз пікір, жек көру", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хейтер", literary: "біреуді үнемі сынайтын адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Фанат", literary: "бір нәрсеге қатты қызығатын адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Хайп", literary: "үлкен қызығушылық, танымалдық", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Тренд", literary: "көпшілік арасында тараған нәрсе", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Вайб", literary: "көңіл-күй, атмосфера", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Чилл", literary: "тыныш демалыс", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Плиз", literary: "өтінемін", meaning: "ағылшынша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Сорян", literary: "кешірші", meaning: "ағылшынша тілдердің араласуы; сленг", category: "Сленг" },
+      { term: "Спс", literary: "рақмет", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Қысқарту" },
+      { term: "Пж", literary: "өтінемін", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Қысқарту" },
+      { term: "Днюха", literary: "туған күн", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Малой", literary: "кіші бала/жігіт", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Девчонка", literary: "қыз", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Ребята", literary: "балалар, достар", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Туса", literary: "туған күн", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Универ", literary: "университет", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Общага", literary: "жатақхана", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Пара", literary: "сабақ", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Препод", literary: "мұғалім/оқытушы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Студент", literary: "студент (бейресми ортада)", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Контра", literary: "бақылау жұмысы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Шпора", literary: "шпаргалка", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Автоматты", literary: "емтихансыз баға алу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Халтура", literary: "сапасыз немесе оңай жасалған жұмыс", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Подстава", literary: "күтпеген қиын жағдай", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Кинуть", literary: "алдау", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Облом", literary: "ойлаған нәрсенің орындалмауы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Тормоз", literary: "баяу түсінетін адам", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Ботан", literary: "сабақты өте жақсы оқитын адам деп бейресми айту", meaning: "орысша тілдердің араласуы; қысқарған сөз", category: "Аралас тіл" },
+      { term: "Зубрить", literary: "жаттап оқу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Слинять", literary: "кетіп қалу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Подкат", literary: "біреумен танысуға әрекет жасау", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Отстой", literary: "өте нашар нәрсе", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Кайф", literary: "ләззат, жақсы көңіл-күй", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Мутить", literary: "бір нәрсені ұйымдастыру/істеу", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Рубиться", literary: "ойын ойнау", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Игрушка", literary: "ойын (бейресми)", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Вписка", literary: "достардың бірге жиналуы", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Буханка", literary: "нан түрі немесе көлікке қатысты бейресми атау", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Тағамка", literary: "тамаққа қатысты бейресми атау", meaning: "Сленг", category: "Сленг" },
+      { term: "Бабло", literary: "ақша", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Копейка", literary: "аз ақша", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" },
+      { term: "Шмотки", literary: "киімдер", meaning: "орысша тілдердің араласуы", category: "Аралас тіл" }
     ];
 
     let currentCategory = 'Барлығы';
@@ -390,19 +497,34 @@
       filterWords();
     }
 
-    // --- ТЕСТ ЛОГИКАСЫ ---
-    const quizQuestions = [
-      { question: "«билмим» сөзінің әдеби нормасы қандай?", options: ["білмеймін", "білмимін", "билмеймин"], answer: 0 },
-      { question: "«спс» қысқартуының дұрыс баламасы:", options: ["Сау бол", "Рақмет", "Сәлем"], answer: 1 },
-      { question: "«Кринж» сөзінің мағынасы қандай?", options: ["Көп мақтану", "Біреу үшін ұялу немесе ыңғайсыз жағдай", "Досыңа қолдау көрсету"], answer: 1 },
-      { question: "«барм» сөзінің дұрыс мағынасы:", options: ["барамын", "бармаймын", "бармын"], answer: 1 },
-      { question: "«Вайб» сөзі қандай ұғымды білдіреді?", options: ["Жаман мінез", "Атмосфера, көңіл-күй", "Өтірік сөйлеу"], answer: 1 }
-    ];
-
+    // --- ДИНАМИКАЛЫҚ РАНДОМДЫҚ ТЕСТ ЛОГИКАСЫ ---
+    let quizQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
 
     function startQuiz() {
+      // Барлық базадан кездейсоқ 5 сөз таңдау
+      const shuffledDictionary = [...dictionary].sort(() => 0.5 - Math.random());
+      const selectedWords = shuffledDictionary.slice(0, 5);
+
+      quizQuestions = selectedWords.map(item => {
+        const wrongOptionsPool = dictionary.filter(d => d.literary !== item.literary);
+        const shuffledWrong = wrongOptionsPool.sort(() => 0.5 - Math.random());
+        const wrong1 = shuffledWrong[0].literary;
+        const wrong2 = shuffledWrong[1].literary;
+
+        let options = [item.literary, wrong1, wrong2];
+        options.sort(() => 0.5 - Math.random());
+
+        const correctIndex = options.indexOf(item.literary);
+
+        return {
+          question: `«${item.term}» сөзінің әдеби нормасы немесе мағынасы қандай?`,
+          options: options,
+          answer: correctIndex
+        };
+      });
+
       currentQuestionIndex = 0;
       score = 0;
       document.getElementById('quizContainer').style.display = 'block';
@@ -430,7 +552,7 @@
 
     function selectOption(selectedBtn, selectedIndex, correctIndex) {
       const options = document.querySelectorAll('.quiz-option');
-      options.forEach(btn => btn.onclick = null); // Жауапты бекіту
+      options.forEach(btn => btn.onclick = null);
 
       if (selectedIndex === correctIndex) {
         selectedBtn.classList.add('correct');
@@ -460,7 +582,7 @@
         🎯 Тест аяқталды!<br><br>
         Сіз ${quizQuestions.length} сұрақтың <strong>${score}</strong> сұрағына дұрыс жауап бердіңіз!
         <br><br>
-        <button class="filter-btn active" onclick="startQuiz()" style="font-size:14px; padding:8px 16px;">Кайтадан тапсыру</button>
+        <button class="filter-btn active" onclick="startQuiz()" style="font-size:14px; padding:8px 16px;">Қайтадан тапсыру</button>
       `;
     }
 
